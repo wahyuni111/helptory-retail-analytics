@@ -211,11 +211,11 @@ Pipeline ini menggambarkan keseluruhan alur kerja aplikasi HELPTORY mulai dari p
 
 | Nama | NIM | Peran |
 |--------|--------|--------|
-| Geugeut Nyarikawanti | 103132400002 | Problem Identification & Feature Improvement |
+| Geugeut Nyarikawanti | 103132400002 | Problem Identification & Feature Improvement, Maintenance |
 | Wahyuni Salsabila | 103132400010 | Project Coordinator, System Development & Maintenance |
-| Azizatul Ainy | 00001999 | Research & Business Requirement Analysis |
-| Fembiana Dika Saputri | 0000111777 | UI/UX Design  |
-| Ruhfaidah | XXXXX | Documentation & System Testing |
+| Azizatul Ainy | 00001999 | Research & Business Requirement Analysis, Maintenance |
+| Fembiana Dika Saputri | 103132400026 | UI/UX Design, System Maintenance |
+| Ruhfaidah | XXXXX | Documentation & System Testing, Maintenance |
 
 ## 🛠️ Cara Menjalankan Aplikasi
 
