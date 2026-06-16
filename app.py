@@ -146,26 +146,26 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
-# =========================
+
 # LOAD DATASET
-# =========================
+
 
 df = pd.read_csv("data/sales_transactions.csv")
 inventory_df = pd.read_csv("data/inventory_stock.csv")
-# =========================
-# CREATE OBJECTS (OOP)
-# =========================
+
+# CREATE OBJECTS 
+
 
 inventory = Inventory(inventory_df)
 analytics = Analytics(df)
 clustering = ProductClustering(df)
-# =========================
+
 # SIDEBAR
-# =========================
+
 
 with st.sidebar:
 
-    # ── Logo + Nama App ──
+    #  Logo + Nama App 
     col1, col2 = st.columns([1, 2])
     with col1:
         st.image("assets/logo_white.png", width=80)
@@ -206,9 +206,9 @@ with st.sidebar:
         label_visibility="collapsed"
     )
 
-# =========================
+
 # HALAMAN DASHBOARD
-# =========================
+
 
 if menu == "🏡 Dashboard":
 
@@ -291,9 +291,9 @@ if menu == "🏡 Dashboard":
             current_stock = row["Current Stock"]
             minimum_stock = row["Minimum Stock"]
 
-        # =====================
+        
         # STOCK STATUS
-        # =====================
+       
 
             if current_stock <= minimum_stock * 0.5:
                 bg_color = "#fee2e2"
@@ -341,30 +341,30 @@ if menu == "🏡 Dashboard":
                 unsafe_allow_html=True
             )
 
-# =========================
+
 # HALAMAN ANALYTICS
-# =========================
+
 
 elif menu == "📈 Analytics":
 
-    st.title("Machine Learning Analytics")
+    st.title("📈 Product Performance & Demand Analysis")
 
-    # =========================
+   
     # FEATURE ENGINEERING
-    # =========================
+    
 
-    features_df = clustering.prepare_features()
+    features_df = clustering.perform_clustering()
 
     st.subheader("📊 Product Performance Analysis")
 
     fig = px.scatter(
-    features_df,
-    x="Average Daily Sales",
-    y="Total Sold",
-    text="Product Name",
-    size="Total Sold",
-    color="Total Sold",
-    color_continuous_scale="Greens"
+        features_df,
+        x="Average Daily Sales",
+        y="Total Sold",
+        text="Product Name",
+        size="Total Sold",
+        color="Total Sold",
+        color_continuous_scale="Greens"
     )
 
     st.plotly_chart(
@@ -385,8 +385,7 @@ elif menu == "📈 Analytics":
         average_sales.head(10),
         x="Product Name",
         y="Quantity",
-        color="Quantity",
-        color_continuous_scale="Greens"
+        color_discrete_sequence=["#16a34a"]
     )
 
     st.plotly_chart(
@@ -435,7 +434,11 @@ elif menu == "📈 Analytics":
 
     # SIMPLE CLUSTERING RESULT
 
-    if total_sold >= 140:
+    cluster = int(
+        product_data["Cluster"].values[0]
+    )
+
+    if cluster == 1:
 
         st.success(
             "FAST MOVING PRODUCT"
@@ -443,7 +446,7 @@ elif menu == "📈 Analytics":
 
     else:
 
-        st.error(
+        st.warning(
             "SLOW MOVING PRODUCT"
         )
 

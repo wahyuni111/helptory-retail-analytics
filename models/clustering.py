@@ -2,6 +2,8 @@
 Cluster 0 fast moving 
 cluster 1 slow moving'''
 import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
 
 class ProductClustering:
 
@@ -89,6 +91,34 @@ class ProductClustering:
             ]
             .round(2)
 
+        )
+
+        return features_df
+
+    def perform_clustering(self):
+
+        # ambil fitur
+        features_df = self.prepare_features()
+
+        # fitur yang dipakai model
+        X = features_df[
+            ["Total Sold", "Average Daily Sales"]
+        ]
+
+        # scaling
+        scaler = StandardScaler()
+
+        X_scaled = scaler.fit_transform(X)
+
+        # K-Means
+        kmeans = KMeans(
+            n_clusters=2,
+            random_state=42,
+            n_init=10
+        )
+
+        features_df["Cluster"] = (
+            kmeans.fit_predict(X_scaled)
         )
 
         return features_df
